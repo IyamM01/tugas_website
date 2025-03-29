@@ -51,7 +51,7 @@
           <li><a href="index.php#hero" class="active">Home</a></li>
           <li><a href="index.php#about">About</a></li>
           <li><a href="index.php#features">Features</a></li>
-          <li><a href="index.php#pricing">Shop</a></li>
+          <li><a href="Shop.php">Shop</a></li>
           <li><a href="index.php#contact">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -86,39 +86,27 @@
     <!-- About Section -->
     <section id="about" class="about section">
 
-      <div class="container">
 
+      <div class="container">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>About</h2>
+      </div>
         <div class="row gy-4">
 
           <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
             <p class="who-we-are">Who We Are</p>
-            <h3>Unleashing Potential with Creative Strategy</h3>
+            <h3>HHIBookstore, Sells various kinds of books</h3>
             <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
+            HHI Bookstore adalah website toko buku online yang menyediakan berbagai macam koleksi buku untuk semua kalangan. Mulai dari buku pelajaran, novel, buku motivasi, komik, hingga buku-buku pengetahuan umum — semua tersedia lengkap dan mudah diakses.
+            Ayo, temukan buku favoritmu dan jadikan membaca sebagai kebiasaan menyenangkan bersama kami di HHI Bookstore!
             </p>
-            <ul>
-              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
-            </ul>
-            <a href="#" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+            <a href="Shop.php" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
           </div>
 
-          <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
-            <div class="row gy-4">
+          <div class="col-lg-6 about-images align-items-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="row gy-12">
               <div class="col-lg-6">
-                <img src="assets/img/about-company-1.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="col-lg-6">
-                <div class="row gy-4">
-                  <div class="col-lg-12">
-                    <img src="assets/img/about-company-2.jpg" class="img-fluid" alt="">
-                  </div>
-                  <div class="col-lg-12">
-                    <img src="assets/img/about-company-3.jpg" class="img-fluid" alt="">
-                  </div>
-                </div>
+                <img src="assets/img/2.png" class="img-fluid" alt="">
               </div>
             </div>
           </div>
@@ -430,10 +418,9 @@
           <h4>Useful Links</h4>
           <ul>
             <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Contact</a></li>
           </ul>
         </div>
 
