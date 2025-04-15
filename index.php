@@ -97,8 +97,7 @@
             <p class="who-we-are">Who We Are</p>
             <h3>HHIBookstore, Sells various kinds of books</h3>
             <p class="fst-italic">
-            HHI Bookstore adalah website toko buku online yang menyediakan berbagai macam koleksi buku untuk semua kalangan. Mulai dari buku pelajaran, novel, buku motivasi, komik, hingga buku-buku pengetahuan umum — semua tersedia lengkap dan mudah diakses.
-            Ayo, temukan buku favoritmu dan jadikan membaca sebagai kebiasaan menyenangkan bersama kami di HHI Bookstore!
+            HHI Bookstore is an online bookstore website that provides a wide range of book collections for all ages. Starting from textbooks, novels, motivational books, comics, to general knowledge books — all are available complete and easy to access. Come on, find your favorite book and make reading a fun habit with us at HHI Bookstore!
             </p>
             <a href="Shop.php" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
           </div>
@@ -133,10 +132,9 @@
                 <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
                   <i class="bi bi-binoculars"></i>
                   <div>
-                    <h4 class="d-none d-lg-block">Modi sit est dela pireda nest</h4>
+                    <h4 class="d-none d-lg-block">Novel Book</h4>
                     <p>
-                      Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                      velit esse cillum dolore eu fugiat nulla pariatur
+                    A novel is a book that contains descriptions of characters that are told in real terms.
                     </p>
                   </div>
                 </a>
@@ -145,10 +143,9 @@
                 <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-2">
                   <i class="bi bi-box-seam"></i>
                   <div>
-                    <h4 class="d-none d-lg-block">Unde praesenti mara setra le</h4>
+                    <h4 class="d-none d-lg-block">Short Story Book</h4>
                     <p>
-                      Recusandae atque nihil. Delectus vitae non similique magnam molestiae sapiente similique
-                      tenetur aut voluptates sed voluptas ipsum voluptas
+                    A short story is a short story which is a work of fictional literature. Short stories are characterized by being short, concise, and clear. Short stories usually focus on one character and one event.
                     </p>
                   </div>
                 </a>
@@ -157,10 +154,9 @@
                 <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
                   <i class="bi bi-brightness-high"></i>
                   <div>
-                    <h4 class="d-none d-lg-block">Pariatur explica nitro dela</h4>
+                    <h4 class="d-none d-lg-block">Dictionary</h4>
                     <p>
-                      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                      Debitis nulla est maxime voluptas dolor aut
+                    A dictionary is a book that contains a large number of words accompanied by explanations and interpretations of the meaning of the words, all of the contents of which are arranged in a certain systematic way, either based on hijaiyah (alphabetical) or thematic order.
                     </p>
                   </div>
                 </a>
@@ -174,11 +170,11 @@
             <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
 
               <div class="tab-pane fade active show" id="features-tab-1">
-                <img src="assets/img/tabs-1.jpg" alt="" class="img-fluid">
+                <img src="assets/img/features1.jpg" alt="" class="img-fluid">
               </div><!-- End Tab Content Item -->
 
               <div class="tab-pane fade" id="features-tab-2">
-                <img src="assets/img/tabs-2.jpg" alt="" class="img-fluid">
+                <img src="assets/img/features3.jpg" alt="" class="img-fluid">
               </div><!-- End Tab Content Item -->
 
               <div class="tab-pane fade" id="features-tab-3">
@@ -202,17 +198,16 @@
         <div class="row gy-4 justify-content-between features-item">
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <img src="assets/img/features-1.jpg" class="img-fluid" alt="">
+            <img src="assets/img/features2.jpg" class="img-fluid" alt="">
           </div>
 
           <div class="col-lg-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
             <div class="content">
-              <h3>Corporis temporibus maiores provident</h3>
+              <h3>Benefits of reading books</h3>
               <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+              Reading books has many benefits, such as increasing insight, enriching vocabulary, improving focus and memory, and helping reduce stress. In addition, reading also stimulates creativity, arouses motivation, and broadens our perspective on the world.
               </p>
-              <a href="#" class="btn more-btn">Learn More</a>
+              <a href="http://perpusda.maltengkab.go.id/7-manfaat-membaca-buku" class="btn more-btn">Learn More</a>
             </div>
           </div>
 
@@ -223,23 +218,21 @@
           <div class="col-lg-5 d-flex align-items-center order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
 
             <div class="content">
-              <h3>Neque ipsum omnis sapiente quod quia dicta</h3>
+              <h3>Other types of books</h3>
               <p>
-                Quidem qui dolore incidunt aut. In assumenda harum id iusto lorena plasico mares
+              The books we sell are not only the 3 above that have been explained but there are several more, namely
               </p>
               <ul>
-                <li><i class="bi bi-easel flex-shrink-0"></i> Et corporis ea eveniet ducimus.</li>
-                <li><i class="bi bi-patch-check flex-shrink-0"></i> Exercitationem dolorem sapiente.</li>
-                <li><i class="bi bi-brightness-high flex-shrink-0"></i> Veniam quia modi magnam.</li>
+                <li><i class="bi bi-easel flex-shrink-0"></i>Fairy Tale Book</li>
+                <li><i class="bi bi-patch-check flex-shrink-0"></i>Children's Story Book</li>
+                <li><i class="bi bi-brightness-high flex-shrink-0"></i>Comic Book</li>
               </ul>
-              <p></p>
-              <a href="#" class="btn more-btn">Learn More</a>
             </div>
 
           </div>
 
           <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
-            <img src="assets/img/features-2.jpg" class="img-fluid" alt="">
+            <img src="assets/img/features3.jpg" class="img-fluid" alt="">
           </div>
 
         </div><!-- Features Item -->
@@ -314,7 +307,7 @@
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Contact</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <p>contact us for an exciting shopping experience</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -325,7 +318,7 @@
             <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
               <i class="bi bi-geo-alt"></i>
               <h3>Address</h3>
-              <p>A108 Adam Street, New York, NY 535022</p>
+              <p>Minggir, SLeman, Daerah Istimewa Yogyakarta</p>
             </div>
           </div><!-- End Info Item -->
 
@@ -333,7 +326,7 @@
             <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
               <i class="bi bi-telephone"></i>
               <h3>Call Us</h3>
-              <p>+1 5589 55488 55</p>
+              <p>+6285292275543</p>
             </div>
           </div><!-- End Info Item -->
 
@@ -341,7 +334,7 @@
             <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
               <i class="bi bi-envelope"></i>
               <h3>Email Us</h3>
-              <p>info@example.com</p>
+              <p>hhibookstore@example.com</p>
             </div>
           </div><!-- End Info Item -->
 
@@ -401,10 +394,10 @@
             <span class="sitename">QuickStart</span>
           </a>
           <div class="footer-contact pt-3">
-            <p>A108 Adam Street</p>
-            <p>New York, NY 535022</p>
+            <p>Ilham</p>
+            <p>Minggir, Sleman</p>
             <p class="mt-3"><strong>Phone:</strong> <span>+62</span></p>
-            <p><strong>Email:</strong> <span>ilhamnh112007@gmail.com</span></p>
+            <p><strong>Email:</strong> <span>hhibookstore@gmail.com</span></p>
           </div>
           <div class="social-links d-flex mt-4">
             <a href=""><i class="bi bi-twitter-x"></i></a>
