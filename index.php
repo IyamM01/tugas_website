@@ -93,7 +93,7 @@
       </div>
         <div class="row gy-4">
 
-          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-8 content" data-aos="fade-up" data-aos-delay="100">
             <p class="who-we-are">Who We Are</p>
             <h3>HHIBookstore, Sells various kinds of books</h3>
             <p class="fst-italic">
@@ -103,9 +103,9 @@
             <a href="Shop.php" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
           </div>
 
-          <div class="col-lg-6 about-images align-items-center" data-aos="fade-up" data-aos-delay="200">
-            <div class="row gy-12">
-              <div class="col-lg-6">
+          <div class="col-lg-4 about-images align-items-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="row gy-8">
+              <div class="col-lg-8">
                 <img src="assets/img/2.png" class="img-fluid" alt="">
               </div>
             </div>
