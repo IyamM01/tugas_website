@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Shop</title>
-    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/shop.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link href="assets/img/2.png" rel="icon">
     <link href="assets/img/2.jpg" rel="apple-touch-icon">
@@ -21,6 +21,10 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
+        <form class="d-flex" role="search">
+            <input class="form-control me-2 pr-10" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
           <li><a href="index.php#hero" class="active">Home</a></li>
           <li><a href="index.php#contact">Contact</a></li>
           <div class="dropdown">
@@ -34,7 +38,7 @@
                 <li><a class="dropdown-item" href="#">Dongeng</a></li>
                 <li><a class="dropdown-item" href="#">Komik</a></li>
                 <li><a class="dropdown-item" href="#">Kamus</a></li>
-            </ul>
+            </ul> 
             </div>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -45,6 +49,7 @@
     </div>
   </header>
 
+<body>
     <div class="row row-cols-1 row-cols-md-5 g-4">
         <div class="col">
             <div class="card h-100">
@@ -227,6 +232,7 @@
             </div>
         </div>
     </div>
+</body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
   </body>
 </html>

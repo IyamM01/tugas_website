@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login dan Sign up</title>
     <link rel="stylesheet" href="Login.css">
-    <link  href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="assets/img/2.png" rel="icon">
     <link href="assets/img/2.jpg" rel="apple-touch-icon">
 </head>
@@ -15,27 +14,28 @@
         <div class="form-container register-container">
             <form action="action_login.php" method="POST">
                 <h1>Register Here</h1>
-                <input type="text" placeholder="Name">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
-                <button>Register</button>
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Register</button>
             </form>
         </div>
 
         <div class="form-container login-container">
             <form action="action_login.php" method="POST">
                 <h1>Login Here</h1>
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
                 <div class="content">
                     <div class="checkbox">
                         <input type="checkbox" name="checkbox" id="checkbox">
-                        <label>Remember me</label>
+                        <label for="checkbox">Remember me</label>
                     </div>
                     <div class="pass-link">
                         <a href="forgot-pw.php">Forgot Password</a>
                     </div>
                 </div>
+                <button type="submit">Login</button>
             </form>
         </div>
 
