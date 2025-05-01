@@ -11,6 +11,7 @@
   </head>
 
   <body>
+<<<<<<< HEAD
     <header id="header" class="header d-flex align-items-center fixed-top">
       <div class="container-fluid container-xl position-relative d-flex align-items-center">
         <a href="index.php" class="logo d-flex align-items-center me-auto">
@@ -28,6 +29,30 @@
             <div class="dropdown">
               <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Kategori</button>
               <ul class="dropdown-menu">
+=======
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.php" class="logo d-flex align-items-center me-auto">
+        <img src="assets/img/2.png" alt="">
+        <h1 class="sitename">Bookstore</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+        <form class="d-flex" role="search" action="search-shop.php">
+            <input class="form-control me-2 pr-10" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+          <li><a href="index.php#hero" class="active">Home</a></li>
+          <li><a href="index.php#contact">Contact</a></li>
+          <div class="dropdown">
+            <button class=" dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Kategori
+            </button>
+            <ul class="dropdown-menu">
+>>>>>>> 658a35e (test)
                 <li><a class="dropdown-item" href="#">Novel</a></li>
                 <li><a class="dropdown-item" href="#">Cerpen</a></li>
                 <li><a class="dropdown-item" href="#">Cerita Anak</a></li>
@@ -56,6 +81,7 @@
                    OR category LIKE :keyword 
                    OR price LIKE :keyword";
 
+<<<<<<< HEAD
       $stmt = $pdo->prepare($query);
       $stmt->execute(['keyword' => "%$keyword%"]);
       $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -82,6 +108,26 @@
       }
     ?>
   </div>
+=======
+<body>
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+        <div class="col">
+            <div class="card">
+            <img src="assets/img/buku.jpg" class="card-img-top" alt="...">
+
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Rp.12.500,00</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Add to chart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+>>>>>>> 658a35e (test)
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
   </body>
 </html>

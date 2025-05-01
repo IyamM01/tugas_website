@@ -1,8 +1,8 @@
 /* General Styling */
 :root {
-  --primary-color: #6b4226;
-  --secondary-color: #8c5e37;
-  --accent-color: #c8a27c;
+  --primary-color: #34b4eb;
+  --secondary-color: #34b4eb;
+  --accent-color: #34b4eb;
   --light-color: #f5f0e8;
   --dark-color: #3a2513;
   --transition: all 0.3s ease-in-out;
@@ -60,7 +60,7 @@ body {
   color: black;
   text-decoration: none;
   font-weight: 500;
-  transition: var(--transition);
+  /*transition: var(--transition);*/
 }
 
 .navmenu ul li a:hover,
@@ -96,16 +96,16 @@ body {
 
 .navmenu .btn-outline-success {
   border-radius: 0 20px 20px 0;
-  background-color: var(--accent-color);
+  background-color: #7c93c8;
   border-color: var(--accent-color);
   color: var(--dark-color);
-  transition: var(--transition);
+  transition: #7c93c8;
 }
 
 .navmenu .btn-outline-success:hover {
   background-color: var(--secondary-color);
   border-color: var(--secondary-color);
-  color: white;
+  color: black;
 }
 
 /* Dropdown Menu */
@@ -116,7 +116,6 @@ body {
   cursor: pointer;
   font-weight: 500;
   padding: 8px 15px;
-  transition: var(--transition);
 }
 
 .dropdown-toggle:hover {

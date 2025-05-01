@@ -24,8 +24,13 @@
         <div class="form-container login-container">
             <form action="action-login.php" method="POST">
                 <h1>Login Here</h1>
+<<<<<<< HEAD
                 <input type="text" placeholder="Email or username" name="email_or_username" required>
                 <input type="password" placeholder="Password" name="password" required>
+=======
+                <input type="text" placeholder="Email or Username" required>
+                <input type="password" placeholder="Password" required>
+>>>>>>> 658a35e (test)
                 <div class="content">
                     <div class="checkbox">
                         <input type="checkbox" name="checkbox" id="checkbox">

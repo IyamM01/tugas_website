@@ -11,7 +11,6 @@
   <div class="forgot-password-container">
     <h2>Forgot Password</h2>
     <p>Masukkan email Anda untuk mendapatkan tautan reset password.</p>
-    
     <form action="#" method="POST">
       <label for="email">Email:</label>
       <input type="email" id="email" name="email" placeholder="contoh@email.com" required>
@@ -20,7 +19,7 @@
     </form>
 
     <div class="back-link">
-      <a href="login.html">Kembali ke Login</a>
+      <a href="login.php">Kembali ke Login</a>
     </div>
   </div>
 

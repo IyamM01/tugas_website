@@ -45,6 +45,7 @@
           <li><a href="index.php#features">Features</a></li>
           <li><a href="Shop.php">Shop</a></li>
           <li><a href="index.php#contact">Contact</a></li>
+          <li><a href="profile.php">Profile</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
