@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Forgot Password</title>
-  <link rel="stylesheet" href="assets/css/forgot-pw.css">
+  <link rel="stylesheet" href="forgot-pw.css">
 </head>
 <body>
  

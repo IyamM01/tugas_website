@@ -9,8 +9,7 @@
 </head>
 <body>
     <nav class="flex items-center justify-between p-4 bg-gray-800 text-white">
-        <img src="/assets/img/2.png" alt="" class="w-10 h-10">
-<<<<<<< HEAD
+        <img src="2.png" alt="" class="w-10 h-10">
         <a href="index.php"><h1>DASHBOARD</h1></a>
         <ul class="flex space-x-4 ml-4">
             <li><a href="users.php" class="hover:text-gray-400">Users</a></li>
@@ -30,20 +29,5 @@
         <p>Use the menu to navigate through the admin panel.</p>
     </div>
     <?php endif; ?>
-=======
-        <ul class="flex space-x-4 ml-4">
-            <li><a href="/books" class="hover:text-gray-400">Books</a></li>
-        </ul>
-        <div class="ml-auto">
-            <a href="#" class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-user-round-icon lucide-circle-user-round">
-                    <path d="M18 20a6 6 0 0 0-12 0"/>
-                    <circle cx="12" cy="10" r="4"/>
-                    <circle cx="12" cy="12" r="10"/>
-                </svg>
-            </a>
-        </div>
-    </nav>
->>>>>>> 658a35e (test)
 </body>
 </html>
