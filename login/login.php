@@ -12,7 +12,7 @@
 <body>
     <div class="container" id="container">
         <div class="form-container register-container">
-            <form action="action_login.php" method="POST">
+            <form action="action-login.php" method="POST">
                 <h1>Register Here</h1>
                 <input type="text" placeholder="Name" required>
                 <input type="email" placeholder="Email" required>
