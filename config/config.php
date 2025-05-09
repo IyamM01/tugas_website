@@ -1,13 +1,14 @@
 <?php
 $servername = "localhost";
-$username = "admin";     // ganti sesuai username database Anda
-$password = "123";       // ganti sesuai password Anda
-$dbname = "db_hhi";      // nama database Anda
+$username = "admin";
+$password = "12345";
 
 try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $conn = new PDO("mysql:host=$servername;dbname=db_hhi", $username, $password);
+  // set the PDO error mode to exception
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  echo "Connected successfully";
 } catch(PDOException $e) {
-    die("Koneksi gagal: " . $e->getMessage());
+  echo "Connection failed: " . $e->getMessage();
 }
 ?>

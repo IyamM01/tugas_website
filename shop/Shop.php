@@ -32,7 +32,7 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </form>
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="index.php#hero"">Home</a></li>
+          <li><a href="index.php#hero">Home</a></li>
           <li><a href="index.php#contact">Contact</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Kategori</a>
@@ -56,7 +56,7 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <?php
       if ($results) {
         foreach ($results as $book) {
-          $img = file_exists("assets/img/" . $book['image']) ? $book['image'] : 'default_book.jpg';
+          $img = file_exists("img-book" . $book['image']) ? $book['image'] : 'default_book.jpg';
           echo '
           <div class="col">
             <div class="card h-100">
