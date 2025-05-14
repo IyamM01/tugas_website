@@ -47,8 +47,6 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="login/login.php">Login</a>
-
     </div>
   </header>
 
