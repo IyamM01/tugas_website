@@ -6,14 +6,18 @@
     <title>Login dan Sign up</title>
     <link rel="stylesheet" href="Login.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
-    <link href="assets/img/2.png" rel="icon">
+    <link href="../image/2.png" rel="icon">
     <link href="assets/img/2.jpg" rel="apple-touch-icon">
 </head>
 <body>
     <div class="container" id="container">
         <div class="form-container register-container">
-            <form action="action_login.php" method="POST">
+            <form action="action-register.php" method="POST">
                 <h1>Register Here</h1>
+                <input type="text" placeholder="Username" name="username" required>
+                <input type="text" placeholder="Name" name="name" required>
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="password" placeholder="Password" name="password" required>
                 <input type="text" placeholder="Username" name="username" required>
                 <input type="text" placeholder="Name" name="name" required>
                 <input type="email" placeholder="Email" name="email" required>

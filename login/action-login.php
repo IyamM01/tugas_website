@@ -14,9 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Redirect berdasarkan tipe pengguna
         if ($user['role'] === 'admin') {
-            header('Location: ../dashboard/index.php'); // Admin diarahkan ke dashboard
+            header('Location: /dashboard/index.php'); // Admin diarahkan ke dashboard
         } else {
-            header('Location: ../loged/index.php'); // User diarahkan ke halaman logged
+            header('Location: /loged/index.php'); // User diarahkan ke halaman logged
         }
         exit();
     } else {
