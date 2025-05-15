@@ -3,7 +3,7 @@ include "../config/config.php"; // koneksi PDO ke database
 
 // Query untuk ambil semua data buku
 $query = "SELECT * FROM books";
-$stmt = $pdo->prepare($query);
+$stmt = $conn->prepare($query);
 $stmt->execute();
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -32,22 +32,22 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </form>
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="index.php#hero">Home</a></li>
+          <li><a href="#">Home</a></li>
           <li><a href="index.php#contact">Contact</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Kategori</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="kategori.php?kategori=Fiction">Novel</a></li>
-              <li><a class="dropdown-item" href="kategori.php?kategori=Fantasy">Cerpen</a></li>
-              <li><a class="dropdown-item" href="kategori.php?kategori=Science Fiction">Cerita Anak</a></li>
-              <li><a class="dropdown-item" href="kategori.php?kategori=Mystery">Dongeng</a></li>
-              <li><a class="dropdown-item" href="kategori.php?kategori=Romance">Komik</a></li>
+              <li><a class="dropdown-item" href="kategori.php?kategori=novel">Novel</a></li>
+              <li><a class="dropdown-item" href="kategori.php?kategori=cerpen">Cerpen</a></li>
+              <li><a class="dropdown-item" href="kategori.php?kategori=dongeng">Cerita Anak</a></li>
+              <li><a class="dropdown-item" href="kategori.php?kategori=komik">Dongeng</a></li>
+              <li><a class="dropdown-item" href="kategori.php?kategori=cerita anak">Komik</a></li>
               <li><a class="dropdown-item" href="kategori.php?kategori=Non-Fiction">Kamus</a></li>
             </ul>
           </li>
+          <li><a href="cart/cart.php">Keranjang</a></li>
         </ul>
       </nav>
-      <a class="btn-getstarted" href="login.php">Login</a>
     </div>
   </header>
 
@@ -56,7 +56,7 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <?php
       if ($results) {
         foreach ($results as $book) {
-          $img = file_exists("img-book" . $book['image']) ? $book['image'] : 'default_book.jpg';
+          $img = file_exists("books/image" . $book['image']) ? $book['image'] : 'default_book.jpg';
           echo '
           <div class="col">
             <div class="card h-100">
@@ -66,9 +66,16 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <p class="card-text">
                   Penulis: ' . htmlspecialchars($book['author']) . '<br>
                   Kategori: ' . htmlspecialchars($book['category']) . '<br>
+                  Deskripsi: ' . htmlspecialchars($book['description']) . '<br>
                   Harga: Rp ' . number_format($book['price'], 0, ',', '.') . '
                 </p>
-                <a href="cart.php" class="btn btn-primary">Add to cart</a>
+                <form action="cart/add_to_cart.php" method="POST">
+                  <input type="hidden" name="book_id" value="' . (isset($book['id']) ? $book['id'] : (isset($book['book_id']) ? $book['book_id'] : '')) . '">
+                  <input type="hidden" name="book_title" value="' . htmlspecialchars($book['title']) . '">
+                  <input type="hidden" name="book_price" value="' . $book['price'] . '">
+                  <input type="hidden" name="book_image" value="' . htmlspecialchars($img) . '">
+                  <button type="submit" class="btn btn-primary">Add to cart</button>
+                </form>
               </div>
             </div>
           </div>';

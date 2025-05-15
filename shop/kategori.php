@@ -5,7 +5,7 @@ $kategori = $_GET['kategori'] ?? '';
 
 if ($kategori !== '') {
   $query = "SELECT * FROM books WHERE category = :kategori";
-  $stmt = $pdo->prepare($query);
+  $stmt = $conn->prepare($query);
   $stmt->execute(['kategori' => $kategori]);
   $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } else {
@@ -39,6 +39,7 @@ if ($kategori !== '') {
                 <p class="card-text">
                   Penulis: ' . htmlspecialchars($book['author']) . '<br>
                   Kategori: ' . htmlspecialchars($book['category']) . '<br>
+                  Deskripsi: ' . htmlspecialchars($book['description']) . '<br>
                   Harga: Rp ' . number_format($book['price'], 0, ',', '.') . '
                 </p>
                 <a href="cart.php" class="btn btn-primary">Add to cart</a>

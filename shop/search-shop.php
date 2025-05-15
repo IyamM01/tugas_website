@@ -39,7 +39,7 @@ $keyword = $_GET['cari'] ?? '';
               OR price LIKE :keyword";
 
     try {
-      $stmt = $pdo->prepare($query);
+      $stmt = $conn->prepare($query);
       $stmt->execute(['keyword' => "%$keyword%"]);
       $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
