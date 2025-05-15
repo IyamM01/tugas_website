@@ -56,11 +56,17 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <?php
       if ($results) {
         foreach ($results as $book) {
-          $img = file_exists("books/image" . $book['image']) ? $book['image'] : 'default_book.jpg';
+          // Check if image exists in the image folder
+          $imagePath = "/books/image/" . $book['image'];
+          $defaultImage = "assets/img/default_book.jpg";
+          
+          // Use the correct image path if the file exists, otherwise use default
+          $imageToDisplay = file_exists($imagePath) ? $imagePath : $defaultImage;
+          
           echo '
           <div class="col">
             <div class="card h-100">
-              <img src="assets/img/' . htmlspecialchars($img) . '" class="card-img-top" alt="...">
+              <img src="' . htmlspecialchars($imageToDisplay) . '" class="card-img-top" alt="Cover buku ' . htmlspecialchars($book['title']) . '">
               <div class="card-body">
                 <h5 class="card-title">' . htmlspecialchars($book['title']) . '</h5>
                 <p class="card-text">
@@ -73,7 +79,7 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                   <input type="hidden" name="book_id" value="' . (isset($book['id']) ? $book['id'] : (isset($book['book_id']) ? $book['book_id'] : '')) . '">
                   <input type="hidden" name="book_title" value="' . htmlspecialchars($book['title']) . '">
                   <input type="hidden" name="book_price" value="' . $book['price'] . '">
-                  <input type="hidden" name="book_image" value="' . htmlspecialchars($img) . '">
+                  <input type="hidden" name="book_image" value="' . htmlspecialchars($book['image']) . '">
                   <button type="submit" class="btn btn-primary">Add to cart</button>
                 </form>
               </div>
