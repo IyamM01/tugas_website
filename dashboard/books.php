@@ -29,11 +29,9 @@ include '../config/auth-admin.php';
             </li>   
         </ul>
     </nav>
-    <?php if (basename($_SERVER['SCRIPT_NAME']) === 'index.php'): ?>
-    <div class="text-center justify-center">
-        <h1>Welcome to the Admin Dashboard</h1>
-        <p>Use the menu to navigate through the admin panel.</p>
-    </div>
-    <?php endif; ?>
+    <section>
+        
+    </section>
+        
 </body>
 </html>

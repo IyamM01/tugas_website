@@ -7,6 +7,8 @@
     --dark-color: #3a2513;
     --transition: all 0.3s ease-in-out;
   }
+
+  
   
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -244,3 +246,12 @@
       padding: 15px;
     }
   }
+
+  .card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+  .card-body {
+  padding: 20px;
+}

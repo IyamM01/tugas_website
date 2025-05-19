@@ -41,7 +41,7 @@ foreach ($_SESSION['cart'] as $item) {
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="/shop/shop.php">Shop</a></li>
+                    <li><a href="/shop/Shop.php">Shop</a></li>
                     <li><a href="index.php#contact">Contact</a></li>
                     <li><a href="cart.php" class="active">Keranjang</a></li>
                 </ul>
@@ -135,7 +135,60 @@ foreach ($_SESSION['cart'] as $item) {
             </div>
         <?php endif; ?>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+<footer id="footer" class="footer position-relative light-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">QuickStart</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p>Ilham</p>
+            <p>Minggir, Sleman</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>+62</span></p>
+            <p><strong>Email:</strong> <span>hhibookstore@gmail.com</span></p>
+          </div>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-12 footer-newsletter">
+          <h4>Our Newsletter</h4>
+          <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
+          <form action="forms/newsletter.php" method="post" class="php-email-form">
+            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+            <div class="loading">Loading</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">HHI</strong><span>All Rights Reserved</span></p>
+    </div>
+
+  </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+
 </html>

@@ -1,3 +1,7 @@
+<?php
+include '../config/auth.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,8 +45,9 @@
           <li><a href="index.php#hero" class="active">Home</a></li>
           <li><a href="index.php#about">About</a></li>
           <li><a href="index.php#features">Features</a></li>
-          <li><a href="Shop.php">Shop</a></li>
+          <li><a href="../shop/Shop.php">Shop</a></li>
           <li><a href="index.php#contact">Contact</a></li>
+          <li><a href="../profile/profile.php">Profile</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
