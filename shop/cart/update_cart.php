@@ -1,23 +1,35 @@
 <?php
 session_start();
+include('../../config/config.php');
 
-// Cek apakah form dikirim
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Ambil data dari form
-    $index = isset($_POST['index']) ? $_POST['index'] : '';
-    $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 0;
-
-    // Validasi data
-    if ($index !== '' && is_numeric($index) && isset($_SESSION['cart'][$index]) && $quantity > 0) {
-        // Update quantity
-        $_SESSION['cart'][$index]['quantity'] = $quantity;
-        $_SESSION['message'] = "Jumlah buku berhasil diperbarui.";
-    } else {
-        $_SESSION['error'] = "Gagal memperbarui jumlah buku.";
-    }
+// Cek apakah ada data yang dikirim melalui POST
+if(!isset($_POST['cart_item_id']) || !isset($_POST['quantity'])) {
+    $_SESSION['error'] = "Data tidak lengkap.";
+    header("Location: cart.php");
+    exit;
 }
 
-// Redirect ke halaman keranjang
+$cart_item_id = $_POST['cart_item_id'];
+$quantity = (int)$_POST['quantity'];
+
+try {
+    if ($quantity > 0) {
+        $stmt = $conn->prepare("UPDATE cart_items SET quantity = ? WHERE cart_item_id = ?");
+        $result = $stmt->execute([$quantity, $cart_item_id]);
+        
+        if($result) {
+            $_SESSION['message'] = "Jumlah berhasil diperbarui.";
+        } else {
+            $_SESSION['error'] = "Gagal memperbarui jumlah.";
+        }
+    } else {
+        $_SESSION['error'] = "Jumlah tidak valid.";
+    }
+} catch(PDOException $e) {
+    $_SESSION['error'] = "Database error: " . $e->getMessage();
+}
+
+
 header("Location: cart.php");
 exit;
 ?>

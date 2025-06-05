@@ -15,10 +15,25 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shop</title>
-  <link href="shop.css" rel="stylesheet">
+  
+  <!-- PASTIKAN URUTAN PEMUATAN CSS BENAR -->
+  <!-- 1. Bootstrap CSS (dari CDN) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- 2. CSS Kustom (setelah Bootstrap) -->
+  <link href="shop.css" rel="stylesheet">
+  
   <link href="../image/2.png" rel="icon">
   <link href="assets/img/2.jpg" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files - JANGAN include Bootstrap lagi -->
+  <link href ="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
 </head>
 <body>
   <header id="header" class="header d-flex align-items-center fixed-top">
@@ -29,31 +44,33 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </a>
       <form class="d-flex me-3" role="search" action="search-shop.php" method="GET">
         <input class="form-control me-2" type="search" name="cari" placeholder="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-light" type="submit">Search</button>
       </form>
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="index.php#contact">Contact</a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Kategori</a>
+          <li><a href="../loged/index.php">Home</a></li>
+          <li><a href="../loged/index.php#contact">Contact</a></li>
+          <li><a href="cart/cart.php">Keranjang</a></li>
+          <!-- FIX: Menggunakan struktur dropdown yang benar untuk Bootstrap 5 -->
+          <li class="nav-item dropdown" action="kategori.php">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Kategori
+            </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="kategori.php?kategori=novel">Novel</a></li>
+              <li><a class="dropdown-item" href="kategori.php?kategori=Novel">Novel</a></li>
               <li><a class="dropdown-item" href="kategori.php?kategori=cerpen">Cerpen</a></li>
-              <li><a class="dropdown-item" href="kategori.php?kategori=dongeng">Cerita Anak</a></li>
-              <li><a class="dropdown-item" href="kategori.php?kategori=komik">Dongeng</a></li>
-              <li><a class="dropdown-item" href="kategori.php?kategori=cerita anak">Komik</a></li>
-              <li><a class="dropdown-item" href="kategori.php?kategori=Non-Fiction">Kamus</a></li>
+              <li><a class="dropdown-item" href="kategori.php?kategori=cerita anak">Cerita Anak</a></li>
+              <li><a class="dropdown-item" href="kategori.php?kategori=dongeng">Dongeng</a></li>
+              <li><a class="dropdown-item" href="kategori.php?kategori=komik">Komik</a></li>
             </ul>
           </li>
-          <li><a href="cart/cart.php">Keranjang</a></li>
           <li><a href="../profile/profile.php">Profile</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <div class="container mt-5 pt-5">
+  <div class="container mt-2 pt-2">
     <div class="row row-cols-1 row-cols-md-5 g-4">
       <?php
       if ($results) {
@@ -91,61 +108,87 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
   </div>
 
-  
-</body>
+  <!-- Footer -->
+  <footer class="text-center text-lg-start text-white" style="background-color: var(--primary-color);">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!--Grid row-->
+      <div class="row mt-4">
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Our Team</h5>
 
-<footer id="footer" class="footer position-relative">
-
-    <div class="container footer-top">
-      <div class="row gy-4">
-        <div class="col-lg-4 col-md-6 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">QuickStart</span>
-          </a>
-          <div class="footer-contact pt-3">
-            <p>Ilham</p>
-            <p>Minggir, Sleman</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+62</span></p>
-            <p><strong>Email:</strong> <span>hhibookstore@gmail.com</span></p>
-          </div>
-          <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Useful Links</h4>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Shop</a></li>
-            <li><a href="#">Contact</a></li>
+          <ul class="list-unstyled">
+            <li>
+              <a href="https://www.instagram.com/_terse_rah_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="blank" class="text-white"><i class="fas fa-shipping-fast fa-fw fa-sm me-2"></i>Ilham</a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/hhniff__?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="blank" class="text-white"><i class="fas fa-backspace fa-fw fa-sm me-2"></i>Hanif</a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/hilmyyaa?igsh=MTJ2YjhxNWR1dnBsNg==" target="blank" class="text-white"><i class="far fa-file-alt fa-fw fa-sm me-2"></i>Hilmy</a>
+            </li>
           </ul>
         </div>
+        <!--Grid column-->
 
-        <div class="col-lg-4 col-md-12 footer-newsletter">
-          <h4>Our Newsletter</h4>
-          <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-          <form action="forms/newsletter.php" method="post" class="php-email-form">
-            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-          </form>
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Publishing house</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!" class="text-white">The BookStore</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Minggir</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">085759712668</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-briefcase fa-fw fa-sm me-2"></i>Send us a book</a>
+            </li>
+          </ul>
         </div>
-
+        <!--Grid column-->
       </div>
+      <!--Grid row-->
     </div>
+    <!-- Grid container -->
 
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">HHI</strong><span>All Rights Reserved</span></p>
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
+      ©Copyright:
+      <a class="text-white">HHIBokstore</a>
     </div>
-
+    
+    <!-- Copyright -->
   </footer>
 
+  <!-- PENTING: Memuat Bootstrap JS sebelum skrip kustom -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
   
+  <!-- Skrip kustom untuk memastikan dropdown berfungsi -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inisialisasi dropdown melalui JS
+      var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+      var dropdownList = dropdownElementList.map(function(dropdownToggleEl) {
+        return new bootstrap.Dropdown(dropdownToggleEl);
+      });
+      
+      // Tambahan: reset dropdown yang mungkin terbuka secara default
+      document.querySelectorAll('.dropdown-menu').forEach(function(menu) {
+        if(menu.classList.contains('show')) {
+          menu.classList.remove('show');
+        }
+      });
+    });
+  </script>
+  
+  <!-- AOS dan validator JS -->
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
+</body>
 </html>

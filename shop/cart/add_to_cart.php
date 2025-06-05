@@ -1,55 +1,42 @@
 <?php
 session_start();
-include('../../config/config.php');
+include '../../config/config.php';
 
-// Cek apakah form dikirim
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Ambil data dari form
-    $book_id = isset($_POST['book_id']) ? $_POST['book_id'] : '';
-    $book_title = isset($_POST['book_title']) ? $_POST['book_title'] : '';
-    $book_price = isset($_POST['book_price']) ? $_POST['book_price'] : 0;
-    $book_image = isset($_POST['book_image']) ? $_POST['book_image'] : '';
-    $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : 1;
+// Ambil data dari form
+$user_id = $_SESSION['user_id'];
+$book_id = $_POST['book_id'];
+$quantity = 1;
 
-    // Validasi data
-    if (!empty($book_id) && !empty($book_title) && !empty($book_price)) {
-        // Inisialisasi keranjang jika belum ada
-        if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = [];
-        }
+// Cari cart aktif user
+$stmt = $conn->prepare("SELECT cart_id FROM cart WHERE user_id = ?");
+$stmt->execute([$user_id]);
+$cart = $stmt->fetch();
 
-        // Cek apakah buku sudah ada di keranjang
-        $item_index = -1;
-        foreach ($_SESSION['cart'] as $index => $item) {
-            if ($item['id'] == $book_id) {
-                $item_index = $index;
-                break;
-            }
-        }
-
-        // Jika buku sudah ada di keranjang, tambah quantity
-        if ($item_index >= 0) {
-            $_SESSION['cart'][$item_index]['quantity'] += $quantity;
-        } else {
-            // Jika buku belum ada di keranjang, tambahkan sebagai item baru
-            $_SESSION['cart'][] = [
-                'id' => $book_id,
-                'title' => $book_title,
-                'price' => $book_price,
-                'image' => $book_image,
-                'quantity' => $quantity
-            ];
-        }
-
-        // Set pesan berhasil
-        $_SESSION['message'] = "Buku \"$book_title\" telah ditambahkan ke keranjang.";
-    } else {
-        // Set pesan error
-        $_SESSION['error'] = "Gagal menambahkan buku ke keranjang.";
-    }
+if (!$cart) {
+    // Buat cart baru jika belum ada
+    $stmt = $conn->prepare("INSERT INTO cart (user_id) VALUES (?)");
+    $stmt->execute([$user_id]);
+    $cart_id = $conn->lastInsertId();
+} else {
+    $cart_id = $cart['cart_id'];
 }
 
-// Redirect ke halaman keranjang
-header("Location: cart.php");
-exit;
+// Cek apakah buku sudah di keranjang
+$stmt = $conn->prepare("SELECT * FROM cart_items WHERE cart_id = ? AND book_id = ?");
+$stmt->execute([$cart_id, $book_id]);
+$existing = $stmt->fetch();
+
+if ($existing) {
+    // Update kuantitas
+    $stmt = $conn->prepare("UPDATE cart_items SET quantity = quantity + ? WHERE cart_id = ? AND book_id = ?");
+    $stmt->execute([$quantity, $cart_id, $book_id]);
+} else {
+    // Tambahkan item ke cart
+    $stmt = $conn->prepare("INSERT INTO cart_items (cart_id, book_id, quantity) VALUES (?, ?, ?)");
+    $stmt->execute([$cart_id, $book_id, $quantity]);
+}
+
+
+header("Location: ../Shop.php");
+exit();
 ?>

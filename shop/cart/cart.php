@@ -1,17 +1,35 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header('Location: ../../login/login.php');
+    exit();
+}
+
 include('../../config/config.php');
+// Check if user is logged in
+    $user_id = $_SESSION['user_id'];
 
-// Inisialisasi keranjang jika belum ada
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
-}
+    $stmt = $conn->prepare("SELECT cart_id FROM cart WHERE user_id = ?");
+    $stmt->execute([$user_id]);
+    $cart = $stmt->fetch();
 
-// Hitung total belanja
-$total = 0;
-foreach ($_SESSION['cart'] as $item) {
-    $total += $item['price'] * $item['quantity'];
+$items = [];
+if ($cart) {
+    $stmt = $conn->prepare("SELECT ci.*, b.book_id, b.title, b.price FROM cart_items ci JOIN books b ON ci.book_id = b.book_id WHERE ci.cart_id = ?");
+
+    $stmt->execute([$cart['cart_id']]);
+    $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+    $total = 0;
+    foreach ($items as $item):
+        $subtotal = $item['price'] * $item['quantity'];
+        $total += $subtotal;
+    endforeach;
+
+    // Update the total price in the cart
+    $update = $conn->prepare("UPDATE cart SET total_price = ? WHERE cart_id = ?");
+    $update->execute([$total, $cart['cart_id']]);
+
 ?>
 
 <!doctype html>
@@ -40,9 +58,9 @@ foreach ($_SESSION['cart'] as $item) {
             </a>
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="/shop/Shop.php">Shop</a></li>
-                    <li><a href="index.php#contact">Contact</a></li>
+                    <li><a href="../../loged/index.php">Home</a></li>
+                    <li><a href="../../shop/Shop.php">Shop</a></li>
+                    <li><a href="../../loged/index.php#contact">Contact</a></li>
                     <li><a href="cart.php" class="active">Keranjang</a></li>
                 </ul>
             </nav>
@@ -72,7 +90,7 @@ foreach ($_SESSION['cart'] as $item) {
             </div>
         <?php endif; ?>
 
-        <?php if (empty($_SESSION['cart'])): ?>
+        <?php if (empty($items)): ?>
             <div class="alert alert-info">
                 Keranjang belanja Anda kosong. <a href="../Shop.php">Lihat koleksi buku kami</a>.
             </div>
@@ -81,7 +99,6 @@ foreach ($_SESSION['cart'] as $item) {
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Gambar</th>
                             <th>Judul Buku</th>
                             <th>Harga</th>
                             <th>Jumlah</th>
@@ -90,16 +107,14 @@ foreach ($_SESSION['cart'] as $item) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($_SESSION['cart'] as $index => $item): ?>
+                        <?php foreach ($items as $index => $item): 
+                            ?>
                             <tr class="cart-item">
-                                <td>
-                                    <img src="assets/img/<?php echo htmlspecialchars($item['image']); ?>" alt="<?php echo htmlspecialchars($item['title']); ?>" class="img-thumbnail">
-                                </td>
                                 <td><?php echo htmlspecialchars($item['title']); ?></td>
                                 <td>Rp <?php echo number_format($item['price'], 0, ',', '.'); ?></td>
                                 <td>
                                     <form action="update_cart.php" method="POST" class="d-flex">
-                                        <input type="hidden" name="index" value="<?php echo $index; ?>">
+                                        <input type="hidden" name="cart_item_id" value="<?php echo $item['cart_item_id']; ?>">
                                         <input type="number" name="quantity" value="<?php echo $item['quantity']; ?>" min="1" max="99" class="form-control form-control-sm" style="width: 70px;">
                                         <button type="submit" class="btn btn-sm btn-outline-secondary ms-2">Update</button>
                                     </form>
@@ -107,7 +122,7 @@ foreach ($_SESSION['cart'] as $item) {
                                 <td>Rp <?php echo number_format($item['price'] * $item['quantity'], 0, ',', '.'); ?></td>
                                 <td>
                                     <form action="remove_from_cart.php" method="POST">
-                                        <input type="hidden" name="index" value="<?php echo $index; ?>">
+                                        <input type="hidden" name="cart_item_id" value="<?php echo $item['cart_item_id']; ?>">
                                         <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                                     </form>
                                 </td>
@@ -135,60 +150,63 @@ foreach ($_SESSION['cart'] as $item) {
             </div>
         <?php endif; ?>
     </div>
-</body>
+<footer class="text-center text-lg-start text-white" style="background-color: var(--primary-color);">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!--Grid row-->
+      <div class="row mt-4">
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Our Team</h5>
 
-<footer id="footer" class="footer position-relative light-background">
-
-    <div class="container footer-top">
-      <div class="row gy-4">
-        <div class="col-lg-4 col-md-6 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">QuickStart</span>
-          </a>
-          <div class="footer-contact pt-3">
-            <p>Ilham</p>
-            <p>Minggir, Sleman</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+62</span></p>
-            <p><strong>Email:</strong> <span>hhibookstore@gmail.com</span></p>
-          </div>
-          <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Useful Links</h4>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Shop</a></li>
-            <li><a href="#">Contact</a></li>
+          <ul class="list-unstyled">
+            <li>
+              <a href="https://www.instagram.com/_terse_rah_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="blank" class="text-white"><i class="fas fa-shipping-fast fa-fw fa-sm me-2"></i>Ilham</a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/hhniff__?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="blank" class="text-white"><i class="fas fa-backspace fa-fw fa-sm me-2"></i>Hanif</a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/hilmyyaa?igsh=MTJ2YjhxNWR1dnBsNg==" target="blank" class="text-white"><i class="far fa-file-alt fa-fw fa-sm me-2"></i>Hilmy</a>
+            </li>
           </ul>
         </div>
+        <!--Grid column-->
 
-        <div class="col-lg-4 col-md-12 footer-newsletter">
-          <h4>Our Newsletter</h4>
-          <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-          <form action="forms/newsletter.php" method="post" class="php-email-form">
-            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-          </form>
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Publishing house</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!" class="text-white">The BookStore</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">Minggir</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white">085759712668</a>
+            </li>
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-briefcase fa-fw fa-sm me-2"></i>Send us a book</a>
+            </li>
+          </ul>
         </div>
-
+        <!--Grid column-->
       </div>
+      <!--Grid row-->
     </div>
+    <!-- Grid container -->
 
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">HHI</strong><span>All Rights Reserved</span></p>
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
+      ©Copyright:
+      <a class="text-white">HHIBokstore</a>
     </div>
-
+    
+    <!-- Copyright -->
   </footer>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="assets/js/main.js"></script>
+</body>
 </html>

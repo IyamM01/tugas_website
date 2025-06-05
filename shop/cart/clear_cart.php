@@ -1,14 +1,18 @@
 <?php
 session_start();
+include '../../config/config.php';
 
-// Cek apakah form dikirim
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Kosongkan keranjang
-    $_SESSION['cart'] = [];
-    $_SESSION['message'] = "Keranjang belanja telah dikosongkan.";
+$user_id = $_SESSION['user_id'];
+
+$stmt = $conn->prepare("SELECT cart_id FROM cart WHERE user_id = ?");
+$stmt->execute([$user_id]);
+$cart = $stmt->fetch();
+
+if ($cart) {
+    $stmt = $conn->prepare("DELETE FROM cart_items WHERE cart_id = ?");
+    $stmt->execute([$cart['cart_id']]);
 }
 
-// Redirect ke halaman keranjang
 header("Location: cart.php");
-exit;
+exit();
 ?>

@@ -1,6 +1,6 @@
 <?php
-session_start();
-include_once '../config/config.php'; // Ganti dengan path ke file config.php Anda
+session_start(); // mulai session
+include '../config/config.php'; // ganti dengan path ke file config.php Anda
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
@@ -17,13 +17,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-
+    // hash password
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
+    // insert user baru
     $stmt = $conn->prepare("INSERT INTO users (username, name, email, password) VALUES (?, ?, ?, ?)");
     $stmt->execute([$username, $name, $email, $hashed_password]);
 
-    //redirect ke login
-    header('Location: login.php');
+    // mengambil data user yang baru dibuat
+    $user_id = $conn->lastInsertId();
+
+    // simpan data user ke session
+    $_SESSION['user_id'] = $user_id;
+    $_SESSION['username'] = $username;
+    $_SESSION['name'] = $name;
+    $_SESSION['email'] = $email;
+    $_SESSION['role'] = $role['role'];
+
+    // redirect ke halaman index
+    header('Location: ../loged/index.php');
 }
 ?>

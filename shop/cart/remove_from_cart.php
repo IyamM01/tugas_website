@@ -1,29 +1,29 @@
 <?php
 session_start();
+include('../../config/config.php');
 
-// Cek apakah form dikirim
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Ambil data dari form
-    $index = isset($_POST['index']) ? $_POST['index'] : '';
-
-    // Validasi data
-    if ($index !== '' && is_numeric($index) && isset($_SESSION['cart'][$index])) {
-        // Simpan informasi buku yang dihapus untuk pesan
-        $book_title = $_SESSION['cart'][$index]['title'];
-        
-        // Hapus item dari keranjang
-        unset($_SESSION['cart'][$index]);
-        
-        // Reindex array untuk menghindari index yang bolong
-        $_SESSION['cart'] = array_values($_SESSION['cart']);
-        
-        $_SESSION['message'] = "Buku \"$book_title\" telah dihapus dari keranjang.";
-    } else {
-        $_SESSION['error'] = "Gagal menghapus buku dari keranjang.";
-    }
+// Cek apakah ada data yang dikirim melalui POST
+if(!isset($_POST['cart_item_id'])) {
+    $_SESSION['error'] = "ID item tidak ditemukan.";
+    header("Location: cart.php");
+    exit;
 }
 
-// Redirect ke halaman keranjang
+$cart_item_id = $_POST['cart_item_id'];
+
+try {
+    $stmt = $conn->prepare("DELETE FROM cart_items WHERE cart_item_id = ?");
+    $result = $stmt->execute([$cart_item_id]);
+    
+    if($result) {
+        $_SESSION['message'] = "Item berhasil dihapus.";
+    } else {
+        $_SESSION['error'] = "Gagal menghapus item.";
+    }
+} catch(PDOException $e) {
+    $_SESSION['error'] = "Database error: " . $e->getMessage();
+}
+
 header("Location: cart.php");
 exit;
 ?>

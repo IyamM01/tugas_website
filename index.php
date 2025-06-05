@@ -89,13 +89,13 @@
             <p class="fst-italic">
             HHI Bookstore is an online bookstore website that provides a wide range of book collections for all ages. Starting from textbooks, novels, motivational books, comics, to general knowledge books — all are available complete and easy to access. Come on, find your favorite book and make reading a fun habit with us at HHI Bookstore!
             </p>
-            <a href="Shop.php" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+            <a href="/shop/Shop.php" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
           </div>
 
           <div class="col-lg-4 about-images align-items-center" data-aos="fade-up" data-aos-delay="200">
             <div class="row gy-8">
               <div class="col-lg-8">
-                <img src="assets/img/2.png" class="img-fluid" alt="">
+                <img src="image/2.png" class="img-fluid" alt="">
               </div>
             </div>
           </div>
@@ -160,11 +160,11 @@
             <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
 
               <div class="tab-pane fade active show" id="features-tab-1">
-                <img src="assets/img/features1.jpg" alt="" class="img-fluid">
+                <img src="image/features1.jpg" alt="" class="img-fluid">
               </div><!-- End Tab Content Item -->
 
               <div class="tab-pane fade" id="features-tab-2">
-                <img src="assets/img/features3.jpg" alt="" class="img-fluid">
+                <img src="image/features3.jpg" alt="" class="img-fluid">
               </div><!-- End Tab Content Item -->
 
               <div class="tab-pane fade" id="features-tab-3">
@@ -188,7 +188,7 @@
         <div class="row gy-4 justify-content-between features-item">
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <img src="assets/img/features2.jpg" class="img-fluid" alt="">
+            <img src="image/features2.jpg" class="img-fluid" alt="">
           </div>
 
           <div class="col-lg-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
@@ -222,7 +222,7 @@
           </div>
 
           <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
-            <img src="assets/img/features3.jpg" class="img-fluid" alt="">
+            <img src="image/features3.jpg" class="img-fluid" alt="">
           </div>
 
         </div><!-- Features Item -->
@@ -276,7 +276,7 @@
           </div><!-- End Google Maps -->
 
           <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
+            <form action="../shop/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
               <div class="row gy-4">
 
                 <div class="col-md-6">
@@ -321,7 +321,6 @@
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
           <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">QuickStart</span>
           </a>
           <div class="footer-contact pt-3">
             <p>Ilham</p>
@@ -339,12 +338,13 @@
 
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Useful Links</h4>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Shop</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
+        <ul>
+          <li><a href="index.php#hero">Home</a></li>
+          <li><a href="index.php#about">About</a></li>
+          <li><a href="index.php#features">Features</a></li>
+          <li><a href="index.php#contact">Contact</a></li>
+          <li><a href="../shop/Shop.php">Shop</a></li>
+        </ul>
         </div>
 
         <div class="col-lg-4 col-md-12 footer-newsletter">

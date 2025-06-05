@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query = "SELECT * FROM users WHERE email = :email_or_username OR username = :email_or_username";
     $stmt = $conn->prepare($query);
     $stmt->execute(['email_or_username' => $email_or_username]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
         // tambah session
@@ -19,6 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['email'] = $user['email'];
         $_SESSION['name'] = $user['name'];
         $_SESSION['role'] = $user['role'];
+        $_SESSION['alamat'] = $user['alamat'];
+        $_SESSION['no_hp'] = $user['no_hp'];
+
 
         // Redirect berdasarkan tipe pengguna
         if ($user['role'] === 'admin') {

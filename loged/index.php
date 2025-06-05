@@ -1,4 +1,4 @@
-<?php
+<?php 
 include '../config/auth.php';
 ?>
 
@@ -22,12 +22,12 @@ include '../config/auth.php';
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
-  <link rel="stylesheet" href="../assets/vendor/aos/aos.css">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link href="style.css" rel="stylesheet">
+  <link href="/assets/css/main.css" rel="stylesheet">
 </head>
 
 <body class="index-page">
@@ -36,7 +36,7 @@ include '../config/auth.php';
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
       <a href="index.php" class="logo d-flex align-items-center me-auto">
-        <img src="assets/img/2.png" alt="">
+        <img src="/image/2.png" alt="">
         <h1 class="sitename">Bookstore</h1>
       </a>
 
@@ -45,15 +45,12 @@ include '../config/auth.php';
           <li><a href="index.php#hero" class="active">Home</a></li>
           <li><a href="index.php#about">About</a></li>
           <li><a href="index.php#features">Features</a></li>
-          <li><a href="../shop/Shop.php">Shop</a></li>
           <li><a href="index.php#contact">Contact</a></li>
-          <li><a href="../profile/profile.php">Profile</a></li>
+          <li><a href="../shop/Shop.php">Shop</a></li>
+          <li><a href="/profile/profile.php"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-user-round-icon lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg></a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-
-      <!-- nambah  -->
-
 
     </div>
   </header>
@@ -63,7 +60,7 @@ include '../config/auth.php';
     <!-- Hero Section -->
     <section id="hero" class="hero section">
       <div class="hero-bg">
-        <img src="../assets/img/hero-bg-light.webp" alt="">
+        <img src="/assets/img/hero-bg-light.webp" alt="">
       </div>
       <div class="container text-center">
         <div class="d-flex flex-column justify-content-center align-items-center">
@@ -72,7 +69,7 @@ include '../config/auth.php';
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
             <a href="#about" class="btn-get-started">Get Started</a>
           </div>
-          <img src="gambaratas.png" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
+          <img src="/image/gambaratas.png" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
         </div>
       </div>
 
@@ -101,7 +98,7 @@ include '../config/auth.php';
           <div class="col-lg-4 about-images align-items-center" data-aos="fade-up" data-aos-delay="200">
             <div class="row gy-8">
               <div class="col-lg-8">
-                <img src="2.png" class="img-fluid" alt="">
+                <img src="/image/2.png" class="img-fluid" alt="">
               </div>
             </div>
           </div>
@@ -166,15 +163,15 @@ include '../config/auth.php';
             <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
 
               <div class="tab-pane fade active show" id="features-tab-1">
-                <img src="assets/img/features1.jpg" alt="" class="img-fluid">
+                <img src="/image/features1.jpg" alt="" class="img-fluid">
               </div><!-- End Tab Content Item -->
 
               <div class="tab-pane fade" id="features-tab-2">
-                <img src="assets/img/features3.jpg" alt="" class="img-fluid">
+                <img src="/image/features3.jpg" alt="" class="img-fluid">
               </div><!-- End Tab Content Item -->
 
               <div class="tab-pane fade" id="features-tab-3">
-                <img src="assets/img/tabs-3.jpg" alt="" class="img-fluid">
+                <img src="/assets/img/tabs-3.jpg" alt="" class="img-fluid">
               </div><!-- End Tab Content Item -->
             </div>
 
@@ -194,7 +191,7 @@ include '../config/auth.php';
         <div class="row gy-4 justify-content-between features-item">
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <img src="assets/img/features2.jpg" class="img-fluid" alt="">
+            <img src="/image/features2.jpg" class="img-fluid" alt="">
           </div>
 
           <div class="col-lg-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
@@ -228,7 +225,7 @@ include '../config/auth.php';
           </div>
 
           <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
-            <img src="assets/img/features3.jpg" class="img-fluid" alt="">
+            <img src="/image/features3.jpg" class="img-fluid" alt="">
           </div>
 
         </div><!-- Features Item -->
@@ -236,66 +233,6 @@ include '../config/auth.php';
       </div>
 
     </section><!-- /Features Details Section -->
-
-    <!-- More Features Section -->
-    <section id="more-features" class="more-features section">
-
-      <div class="container">
-
-        <div class="row justify-content-around gy-4">
-
-          <div class="col-lg-6 d-flex flex-column justify-content-center order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
-            <h3>Enim quis est voluptatibus aliquid consequatur</h3>
-            <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi</p>
-
-            <div class="row">
-
-              <div class="col-lg-6 icon-box d-flex">
-                <i class="bi bi-easel flex-shrink-0"></i>
-                <div>
-                  <h4>Lorem Ipsum</h4>
-                  <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias </p>
-                </div>
-              </div><!-- End Icon Box -->
-
-              <div class="col-lg-6 icon-box d-flex">
-                <i class="bi bi-patch-check flex-shrink-0"></i>
-                <div>
-                  <h4>Nemo Enim</h4>
-                  <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiise</p>
-                </div>
-              </div><!-- End Icon Box -->
-
-              <div class="col-lg-6 icon-box d-flex">
-                <i class="bi bi-brightness-high flex-shrink-0"></i>
-                <div>
-                  <h4>Dine Pad</h4>
-                  <p>Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit</p>
-                </div>
-              </div><!-- End Icon Box -->
-
-              <div class="col-lg-6 icon-box d-flex">
-                <i class="bi bi-brightness-high flex-shrink-0"></i>
-                <div>
-                  <h4>Tride clov</h4>
-                  <p>Est voluptatem labore deleniti quis a delectus et. Saepe dolorem libero sit</p>
-                </div>
-              </div><!-- End Icon Box -->
-
-            </div>
-
-          </div>
-
-          <div class="features-image col-lg-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
-            <img src="assets/img/features-3.jpg" alt="">
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /More Features Section -->
-
 
     <!-- Contact Section -->
     <section id="contact" class="contact section">
@@ -342,7 +279,7 @@ include '../config/auth.php';
           </div><!-- End Google Maps -->
 
           <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
+            <form action="../shop/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
               <div class="row gy-4">
 
                 <div class="col-md-6">
@@ -437,17 +374,16 @@ include '../config/auth.php';
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
-  <!-- <div id="preloader"></div> -->
+  <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
-  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/vendor/php-email-form/validate.js"></script>
-  <script src="../assets/vendor/aos/aos.js"></script>
-  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
-
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
+  <script src="/assets/vendor/aos/aos.js"></script>
+  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
   <!-- Main JS File -->
-  <script src="../assets/js/main.js"></script>
+  <script src="/assets/js/main.js"></script>
 
 </body>
 

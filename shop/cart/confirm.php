@@ -1,41 +1,82 @@
 <?php
 session_start();
-include "../../config/config.php";
+include('../../config/config.php');
 
-// Periksa apakah ada order_id
-if (!isset($_GET['order_id']) || empty($_GET['order_id'])) {
-    header("Location: shop.php");
-    exit;
+// Check if order ID is set in session
+if (!isset($_SESSION['order_id']) || !isset($_SESSION['customer_details'])) {
+    header('Location: ../Shop.php');
+    exit();
 }
 
-$order_id = $_GET['order_id'];
+$order_id = $_SESSION['order_id'];
+$customer = $_SESSION['customer_details'];
 
-// Ambil data order
-try {
-    $order_query = "SELECT * FROM orders WHERE id = :order_id";
-    $order_stmt = $pdo->prepare($order_query);
-    $order_stmt->execute([':order_id' => $order_id]);
-    $order = $order_stmt->fetch(PDO::FETCH_ASSOC);
+// Get order information
+$stmt = $conn->prepare("SELECT o.*, u.username FROM orders o 
+                        JOIN users u ON o.user_id = u.user_id 
+                        WHERE o.order_id = ?");
+$stmt->execute([$order_id]);
+$order = $stmt->fetch();
 
-    if (!$order) {
-        $_SESSION['error'] = "Order tidak ditemukan.";
-        header("Location: shop.php");
-        exit;
-    }
-
-    // Ambil detail order
-    $detail_query = "SELECT od.*, b.title, b.image FROM order_details od 
-                    LEFT JOIN books b ON od.book_id = b.id 
-                    WHERE od.order_id = :order_id";
-    $detail_stmt = $pdo->prepare($detail_query);
-    $detail_stmt->execute([':order_id' => $order_id]);
-    $order_details = $detail_stmt->fetchAll(PDO::FETCH_ASSOC);
-
-} catch (PDOException $e) {
-    $_SESSION['error'] = "Terjadi kesalahan saat mengambil data order.";
-    header("Location: shop.php");
-    exit;
+if (!$order) {
+    $_SESSION['error'] = "Pesanan tidak ditemukan";
+    header('Location: ../Shop.php');
+    exit();
 }
+
+// Get order items
+$stmt = $conn->prepare("SELECT oi.*, b.title, b.price FROM order_items oi 
+                       JOIN books b ON oi.book_id = b.book_id 
+                       WHERE oi.order_id = ?");
+$stmt->execute([$order_id]);
+$items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Generate order summary for WhatsApp
+$whatsapp_message = "📚 *PESANAN BARU #" . $order_id . "* 📚\n\n";
+$whatsapp_message .= "*Informasi Pelanggan:*\n";
+$whatsapp_message .= "Nama: " . $customer['name'] . "\n";
+$whatsapp_message .= "No. HP: " . $customer['phone'] . "\n";
+$whatsapp_message .= "Alamat: " . $customer['address'] . "\n";
+if (!empty($customer['email'])) {
+    $whatsapp_message .= "Email: " . $customer['email'] . "\n";
+}
+$whatsapp_message .= "Metode Pembayaran: " . ucfirst($customer['payment_method']) . "\n";
+if (!empty($customer['notes'])) {
+    $whatsapp_message .= "Catatan: " . $customer['notes'] . "\n";
+}
+
+$whatsapp_message .= "\n*Detail Pesanan:*\n";
+$total = 0;
+foreach ($items as $item) {
+    $subtotal = $item['price'] * $item['quantity'];
+    $total += $subtotal;
+    $whatsapp_message .= "- " . $item['title'] . " (x" . $item['quantity'] . ") - Rp " . number_format($subtotal, 0, ',', '.') . "\n";
+}
+$whatsapp_message .= "\n*Total: Rp " . number_format($total, 0, ',', '.') . "*\n";
+$whatsapp_message .= "\nDipesan pada: " . date('d/m/Y H:i', strtotime($order['created_at']));
+
+// URL encode the message for WhatsApp
+$encoded_message = urlencode($whatsapp_message);
+
+// WhatsApp API URL (Replace with the seller's phone number)
+$seller_phone = "6285292275543"; // Change this to the actual seller's WhatsApp number
+$whatsapp_url = "https://wa.me/$seller_phone]?text=$encoded_message";
+
+// Store WhatsApp URL in a session variable for the button
+$_SESSION['whatsapp_url'] = $whatsapp_url;
+
+// Keep a copy of the order details for this page
+$_SESSION['last_order'] = [
+    'order_id' => $order_id,
+    'items' => $items,
+    'total' => $total,
+    'created_at' => $order['created_at'],
+    'customer' => $customer
+];
+
+// Clear the temporary session variables we don't need anymore
+unset($_SESSION['order_id']);
+unset($_SESSION['customer_details']);
 ?>
 
 <!doctype html>
@@ -44,7 +85,7 @@ try {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Konfirmasi Pesanan - Bookstore</title>
-    <link href="shop.css" rel="stylesheet">
+    <link href="../shop.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/img/2.png" rel="icon">
     <link href="assets/img/2.jpg" rel="apple-touch-icon">
@@ -59,105 +100,78 @@ try {
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="shop.php">Shop</a></li>
+                    <li><a href="/shop/Shop.php">Shop</a></li>
                     <li><a href="index.php#contact">Contact</a></li>
                     <li><a href="cart.php">Keranjang</a></li>
                 </ul>
             </nav>
-            <a class="btn-getstarted" href="login.php">Login</a>
         </div>
     </header>
 
     <div class="container mt-5 pt-5">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-md-8">
                 <div class="card border-success mb-4">
                     <div class="card-header bg-success text-white">
-                        <h4 class="mb-0">Pesanan Berhasil!</h4>
+                        <h4 class="mb-0">Pesanan Berhasil Dibuat!</h4>
                     </div>
                     <div class="card-body">
                         <div class="text-center mb-4">
-                            <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
-                            <h5 class="mt-3">Terima kasih atas pesanan Anda</h5>
-                            <p class="lead">Nomor Pesanan: <strong>#<?php echo $order_id; ?></strong></p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-check-circle-fill text-success" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                            </svg>
+                            <h3 class="mt-3">Terima Kasih atas Pesanan Anda!</h3>
+                            <p class="lead">Nomor Pesanan: #<?php echo $order_id; ?></p>
                         </div>
-
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <h6>Informasi Pelanggan</h6>
-                                <p>
-                                    <strong>Nama:</strong> <?php echo htmlspecialchars($order['customer_name']); ?><br>
-                                    <strong>Email:</strong> <?php echo htmlspecialchars($order['customer_email']); ?><br>
-                                    <strong>Alamat:</strong> <?php echo htmlspecialchars($order['customer_address']); ?>
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <h6>Informasi Pesanan</h6>
-                                <p>
-                                    <strong>Tanggal Order:</strong> <?php echo date('d-m-Y H:i', strtotime($order['order_date'])); ?><br>
-                                    <strong>Metode Pembayaran:</strong> <?php echo htmlspecialchars($order['payment_method']); ?><br>
-                                    <strong>Total:</strong> Rp <?php echo number_format($order['total_amount'], 0, ',', '.'); ?>
-                                </p>
-                            </div>
+                        
+                        <div class="alert alert-warning">
+                            <h5 class="alert-heading">Langkah Selanjutnya:</h5>
+                            <p>Untuk menyelesaikan pesanan Anda, silakan klik tombol di bawah untuk menghubungi penjual via WhatsApp. Penjual akan memverifikasi pesanan dan mengirimkan instruksi pembayaran.</p>
                         </div>
-
-                        <h6>Detail Pesanan</h6>
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Buku</th>
-                                        <th>Harga</th>
-                                        <th>Jumlah</th>
-                                        <th class="text-end">Subtotal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($order_details as $detail): ?>
+                        
+                        <div class="d-grid gap-2 col-md-8 mx-auto mb-4">
+                            <a href="<?php echo $whatsapp_url; ?>" class="btn btn-success btn-lg" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp me-2" viewBox="0 0 16 16">
+                                    <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.920l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                                </svg>
+                                Hubungi Penjual via WhatsApp
+                            </a>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5>Detail Pesanan</h5>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
                                         <tr>
-                                            <td><?php echo htmlspecialchars($detail['title']); ?></td>
-                                            <td>Rp <?php echo number_format($detail['price'], 0, ',', '.'); ?></td>
-                                            <td><?php echo $detail['quantity']; ?></td>
-                                            <td class="text-end">Rp <?php echo number_format($detail['price'] * $detail['quantity'], 0, ',', '.'); ?></td>
+                                            <th>Judul Buku</th>
+                                            <th>Harga</th>
+                                            <th>Jumlah</th>
+                                            <th>Subtotal</th>
                                         </tr>
-                                    <?php endforeach; ?>
-                                    <tr>
-                                        <td colspan="3" class="text-end fw-bold">Total:</td>
-                                        <td class="text-end fw-bold">Rp <?php echo number_format($order['total_amount'], 0, ',', '.'); ?></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($items as $item): ?>
+                                            <tr>
+                                                <td><?php echo htmlspecialchars($item['title']); ?></td>
+                                                <td>Rp <?php echo number_format($item['price'], 0, ',', '.'); ?></td>
+                                                <td><?php echo $item['quantity']; ?></td>
+                                                <td>Rp <?php echo number_format($item['price'] * $item['quantity'], 0, ',', '.'); ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="3" class="text-end fw-bold">Total:</td>
+                                            <td class="fw-bold">Rp <?php echo number_format($total, 0, ',', '.'); ?></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
 
-                        <?php if ($order['payment_method'] == 'transfer'): ?>
-                            <div class="alert alert-info mt-3">
-                                <h6>Instruksi Pembayaran:</h6>
-                                <p>Silakan transfer ke rekening berikut:</p>
-                                <ul>
-                                    <li>Bank XYZ</li>
-                                    <li>No. Rekening: 123-456-789</li>
-                                    <li>Atas Nama: Bookstore</li>
-                                    <li>Jumlah: Rp <?php echo number_format($order['total_amount'], 0, ',', '.'); ?></li>
-                                </ul>
-                                <p>Konfirmasi pembayaran melalui WhatsApp: 081234567890</p>
-                            </div>
-                        <?php elseif ($order['payment_method'] == 'emoney'): ?>
-                            <div class="alert alert-info mt-3">
-                                <h6>Instruksi Pembayaran E-Wallet:</h6>
-                                <p>Silakan transfer ke:</p>
-                                <ul>
-                                    <li>OVO/GoPay/DANA: 081234567890</li>
-                                    <li>Atas Nama: Bookstore</li>
-                                    <li>Jumlah: Rp <?php echo number_format($order['total_amount'], 0, ',', '.'); ?></li>
-                                </ul>
-                                <p>Konfirmasi pembayaran melalui WhatsApp: 081234567890</p>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-between">
-                            <a href="shop.php" class="btn btn-outline-primary">Lanjutkan Belanja</a>
-                            <button class="btn btn-outline-secondary" onclick="window.print()">Cetak Konfirmasi</button>
+                        <div class="text-center">
+                            <a href="../Shop.php" class="btn btn-primary">Lanjutkan Belanja</a>
                         </div>
                     </div>
                 </div>
@@ -165,7 +179,21 @@ try {
         </div>
     </div>
 
+    <footer id="footer" class="footer position-relative light-background mt-5">
+        <div class="container copyright text-center mt-4">
+            <p>© <span>Copyright</span> <strong class="px-1 sitename">HHI</strong><span>All Rights Reserved</span></p>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Auto-redirect to WhatsApp after 3 seconds (optional - remove if not wanted)
+        /*
+        setTimeout(function() {
+            window.open('<?php echo $whatsapp_url; ?>', '_blank');
+        }, 3000);
+        */
+    </script>
 </body>
 </html>

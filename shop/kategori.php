@@ -1,5 +1,6 @@
 <?php
 include "../config/config.php"; // koneksi ke database
+include '../config/auth.php'; // autentikasi pengguna
 
 $kategori = $_GET['kategori'] ?? '';
 
@@ -29,12 +30,14 @@ if ($kategori !== '') {
       <?php
       if ($results) {
         foreach ($results as $book) {
-          $img = file_exists("assets/img/" . $book['image']) ? $book['image'] : 'default_book.jpg';
+          // Check if image exists in the image folder
+          $imagePath = "../books/image/" . $book['image'];
+          
           echo '
           <div class="col">
             <div class="card h-100">
-              <img src="assets/img/' . htmlspecialchars($img) . '" class="card-img-top" alt="...">
-              <div class="card-body">
+              <img src="' . htmlspecialchars($imagePath) . '" class="card-img-top" alt="Cover buku ' . htmlspecialchars($book['title']) . '">
+              <div class="card-body d-flex flex-column">
                 <h5 class="card-title">' . htmlspecialchars($book['title']) . '</h5>
                 <p class="card-text">
                   Penulis: ' . htmlspecialchars($book['author']) . '<br>
@@ -42,16 +45,26 @@ if ($kategori !== '') {
                   Deskripsi: ' . htmlspecialchars($book['description']) . '<br>
                   Harga: Rp ' . number_format($book['price'], 0, ',', '.') . '
                 </p>
-                <a href="cart.php" class="btn btn-primary">Add to cart</a>
+                <form action="cart/add_to_cart.php" method="POST" class="mt-auto">
+                  <input type="hidden" name="book_id" value="' . (isset($book['id']) ? $book['id'] : (isset($book['book_id']) ? $book['book_id'] : '')) . '">
+                  <input type="hidden" name="book_title" value="' . htmlspecialchars($book['title']) . '">
+                  <input type="hidden" name="book_price" value="' . $book['price'] . '">
+                  <input type="hidden" name="book_image" value="' . htmlspecialchars($book['image']) . '">
+                  <button type="submit" class="btn btn-primary w-100">Add to cart</button>
+                </form>
               </div>
             </div>
+            
           </div>';
         }
       } else {
-        echo '<p class="text-muted">Tidak ada buku untuk kategori ini.</p>';
+        echo '<p class="text-muted">Tidak ada buku tersedia.</p>';
       }
       ?>
     </div>
+    <div class="col-12 mt-4"> 
+        <a href="Shop.php" class="btn btn-outline-secondary">Kembali ke Keranjang</a>
+      </div>
   </div>
 </body>
 </html>
