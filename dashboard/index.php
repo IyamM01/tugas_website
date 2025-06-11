@@ -55,7 +55,7 @@ include '../config/config.php';
         <h1 class="text-3xl font-bold">Daftar Orders</h1>
         <div class="flex items-center space-x-4">
           <div class="relative">
-            <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 rounded-full border border-gray-300" />
+            <input id="searchInput" type="text" onkeyup="liveSearch(this.value)" placeholder="Search..." class="pl-10 pr-4 py-2 rounded-full border border-gray-300" />
             <span class="absolute left-3 top-2.5 text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg></span>
           </div>
           <span class="relative">
@@ -101,7 +101,7 @@ include '../config/config.php';
       </div>
 
       <!-- Recent Orders -->
-      <div class="bg-white p-3 rounded shadow">
+      <div id="defaultTable" class="w-full table bg-white p-6 rounded shadow">
         <h2 class="text-xl font-bold mb-4">Recent Orders</h2>
         <div class="overflow-x-auto">
           <table class="min-w-full text-left">
@@ -119,14 +119,13 @@ include '../config/config.php';
               $query = $conn->prepare("SELECT * FROM orders");
               $query->execute();
               $orders = $query->fetchAll();
-
               foreach ($orders as $order) {
-                echo "<tr class='border-t'>";
-                echo "<td class='py-2 px-4'>{$order['order_id']}</td>";
+                echo "<tr class='borderer-t'>";
+                echo "<td class='py-2 px-4 flex items-center space-x-2'>";
+                echo "<span> {$order['order_id']} </span>";
+                echo "</td>";
                 echo "<td class='py-2 px-4'>{$order['user_id']}</td>";
                 echo "<td class='py-2 px-4'>{$order['price']}</td>";
-
-                // Tambahkan form untuk update status
                 echo "<td class='py-2 px-4'>
                         <form method='POST' action='update-status.php'>
                           <input type='hidden' name='order_id' value='{$order['order_id']}'>
@@ -145,6 +144,7 @@ include '../config/config.php';
           </table>
         </div>
       </div>
+      <div id="searchResults" class="mt-4"></div>
     </main>
   </div>
 
@@ -173,6 +173,49 @@ include '../config/config.php';
         select.addEventListener("change", () => updateColor(select));
       });
     });
+
+    function liveSearch() {
+      const keyword = document.getElementById('searchInput').value.trim();
+      const resultsContainer = document.getElementById('searchResults');
+      const defaultTable = document.getElementById('defaultTable');
+
+      if (keyword.length === 0) {
+        resultsContainer.innerHTML = '';
+        defaultTable.style.display = 'table';  // tampilkan tabel default
+        return;
+      } else {
+        defaultTable.style.display = 'none';  // sembunyikan tabel default
+      }
+
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'search-order.php?keyword=' + encodeURIComponent(keyword), true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          resultsContainer.innerHTML = "<p class='text-gray-500'>Loading...</p>";
+          resultsContainer.innerHTML = `
+            <div class="bg-white p-6 rounded shadow">
+              <div class="overflow-x-auto">
+                <table class="min-w-full text-left">
+                  <thead>
+                    <tr>
+                      <th class="py-2 px-4 font-semibold text-gray-600">Order ID</th>
+                      <th class="py-2 px-4 font-semibold text-gray-600">User ID</th>
+                      <th class="py-2 px-4 font-semibold text-gray-600">Price</th>
+                      <th class="py-2 px-4 font-semibold text-gray-600">Status</th>
+                      <th class="py-2 px-4 font-semibold text-gray-600">Tanggal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${xhr.responseText}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `;
+        }
+      };
+      xhr.send();
+    }
   </script>
 </body>
 </html>

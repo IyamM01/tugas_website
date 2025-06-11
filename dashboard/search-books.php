@@ -1,5 +1,4 @@
 <?php
-include '../config/auth-admin.php';
 include '../config/config.php';
 
 if (!isset($_GET['keyword'])) {
@@ -28,3 +27,4 @@ foreach ($books as $book) {
     echo "<td class='py-2 px-2'>{$book['created_at']}</td>";
     echo "</tr>";
 }
+?>
