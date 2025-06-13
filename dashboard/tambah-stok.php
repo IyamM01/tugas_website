@@ -10,13 +10,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
         // Siapkan query dengan binding
-        $query = "UPDATE books SET stock = stock + :jumlah WHERE book_id = :id OR title = :judul";
-        $stmt = $conn->prepare($query);
-        $stmt->execute([
-            ':jumlah' => $jumlah,
-            ':id' => $id_or_judul,
-            ':judul' => $id_or_judul
-        ]);
+        if (is_numeric($id_or_judul)) {
+            $query = "UPDATE books SET stock = stock + :jumlah WHERE book_id = :id";
+            $stmt = $conn->prepare($query);
+            $stmt->execute([
+                ':jumlah' => $jumlah,
+                ':id' => $id_or_judul
+            ]);
+        } else {
+            $query = "UPDATE books SET stock = stock + :jumlah WHERE title = :title";
+            $stmt = $conn->prepare($query);
+            $stmt->execute([
+                ':jumlah' => $jumlah,
+                ':title' => $id_or_judul
+            ]);
+        }
 
         if ($stmt->rowCount() > 0) {
             echo "<script>alert('Stok berhasil ditambahkan'); window.location.href='books.php';</script>";

@@ -59,8 +59,7 @@ $whatsapp_message .= "\nDipesan pada: " . date('d/m/Y H:i', strtotime($order['cr
 $encoded_message = urlencode($whatsapp_message);
 
 // WhatsApp API URL (Replace with the seller's phone number)
-$seller_phone = "6285292275543"; // Change this to the actual seller's WhatsApp number
-$whatsapp_url = "https://wa.me/$seller_phone]?text=$encoded_message";
+$whatsapp_url = "https://wa.me/6289665841243?text=$encoded_message";
 
 // Store WhatsApp URL in a session variable for the button
 $_SESSION['whatsapp_url'] = $whatsapp_url;
